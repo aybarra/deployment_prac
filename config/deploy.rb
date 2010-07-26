@@ -11,7 +11,8 @@ set :mongrel_clean, true
 set :deploy_to, "/usr2/aybarra/deployed/#{application}"
 
 set :mongrel_conf, "#{current_path}/config/mongrel_cluster.yml"
-set :repository,  "https://vborges@github.com/vborges/test.git"
+#set :repository,  "https://vborges@github.com/vborges/deployment_prac.git"
+set :repository, "git@github.com:aybarra/deployment_prac.git"
 ssh_options[:paranoid] = false
 set :scm, :git
 
