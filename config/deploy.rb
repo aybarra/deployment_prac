@@ -34,3 +34,6 @@ role :db,  "localhost", :primary => true # This is where Rails migrations will r
 namespace :deploy do
   task :restart do
    run "sh -c '/local/mnt/workspace/ruby/lib/ruby/gems/1.9.1/gems/mongrel-1.2.0.pre2/bin/mongrel_rails cluster::restart -C /usr2/aybarra/deployed/deployment_prac/current/config/mongrel_cluster.yml --clean'"
+end
+end
+
