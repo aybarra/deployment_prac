@@ -32,29 +32,5 @@ role :app, "localhost"             # This may be the same as your `Web` server
 role :db,  "localhost", :primary => true # This is where Rails migrations will run
 
 namespace :deploy do
-  namespace :mongrel do
-    [ :stop, :start, :restart ].each do |t|
-      desc "#{t.to_s.capitalize} the mongrel appserver"
-      task t, :roles => :app do
-        #invoke_command checks the use_sudo variable to determine how to run the mongrel_rails command
-        invoke_command "mongrel_rails cluster::#{t.to_s} -C #{mongrel_conf}", :via => run_method
-      end
-    end
-  end
-
-  desc "Custom restart task for mongrel cluster"
-  task :restart, :roles => :app, :except => { :no_release => true } do
-    deploy.mongrel.restart
-  end
-
-  desc "Custom start task for mongrel cluster"
-  task :start, :roles => :app do
-    deploy.mongrel.start
-  end
-
-  desc "Custom stop task for mongrel cluster"
-  task :stop, :roles => :app do
-    deploy.mongrel.stop
-  end
-
-end
+  task :restart do
+   run "sh -c '/local/mnt/workspace/ruby/lib/ruby/gems/1.9.1/gems/mongrel-1.2.0.pre2/bin/mongrel_rails cluster::restart -C /usr2/aybarra/deployed/deployment_prac/current/config/mongrel_cluster.yml --clean'"
