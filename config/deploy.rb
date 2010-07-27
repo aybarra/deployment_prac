@@ -6,11 +6,11 @@ set :application, "deployment_prac"
 set :password, "aA187759!"
 set :use_sudo, false
 
-set :mongrel_clean, true
+#set :mongrel_clean, true
 
 set :deploy_to, "/usr2/aybarra/deployed/#{application}"
 
-set :mongrel_conf, "#{current_path}/config/mongrel_cluster.yml"
+#set :mongrel_conf, "#{current_path}/config/mongrel_cluster.yml"
 #set :repository,  "https://vborges@github.com/vborges/deployment_prac.git"
 set :repository, "git@github.com:aybarra/deployment_prac.git"
 ssh_options[:paranoid] = false
@@ -30,4 +30,20 @@ set :deploy_via, :remote_cache
 role :web, "localhost"     # Your HTTP server, Apache/etc
 role :app, "localhost"             # This may be the same as your `Web` server
 role :db,  "localhost", :primary => true # This is where Rails migrations will run
+namespace :deploy do
+  %w(start stop restart).each do |action|
+     desc "#{action} the Thin processes"
+     task action.to_sym do
+       find_and_execute_task("thin:#{action}")
+    end
+  end
+end
 
+namespace :thin do
+  %w(start stop restart).each do |action|
+  desc "#{action} the app's Thin Cluster"
+    task action.to_sym, :roles => :app do
+      run "thin #{action} -c #{deploy_to}/current -C #{deploy_to}/current/config/thin.yml"
+    end
+  end
+end
