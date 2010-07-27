@@ -1,4 +1,4 @@
----
+--- 
 port: "8000"
 servers: 1
 pid_file: tmp/pids/mongrel.pid
