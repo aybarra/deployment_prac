@@ -21,9 +21,9 @@ set :scm_password, "raiders2008_Vero"
 
 set :branch, "master"
 
-ssh_options[:keys] = %w(/usr2/aybarra/.ssh/id_rsa)
+#ssh_options[:keys] = %w(/usr2/aybarra/.ssh/id_rsa)
 #ssh_options[:verbose] = :debug
-ssh_options[:forward_agent] = true
+#ssh_options[:forward_agent] = true
 #ssh_options[:keys] = %w(/Users/user/.ssh/id_rsa)
 set :deploy_via, :remote_cache
 #set :deploy_via, :copy
